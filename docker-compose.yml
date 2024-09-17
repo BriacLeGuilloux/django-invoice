@@ -1,17 +1,48 @@
-version: '3'
+version: '3'  # Spécifie la version de la syntaxe docker-compose
 
 services:
-
   web:
-
-    build: . 
-
-    #command: python manage.py runserver 0.0.0.0:8000 
-
+    restart: always  # Redémarre automatiquement le service en cas de panne
+    build: .  # Construit l'image Docker à partir du Dockerfile dans le répertoire courant
+    command: "sh run.sh"  # Commande à exécuter pour démarrer le service (ici, un script shell)
+    ports:
+      - "8000:8000"  # Expose le port 8000 du conteneur sur le port 8000 de l'hôte
     volumes:
-      - .:/app 
+      - .:/invoice  # Monte le répertoire courant (.) dans le conteneur à /sms
+    env_file:
+      - ".env"  # Charge les variables d'environnement depuis le fichier .env
+    depends_on:
+      - db  # Ce service dépend du service 'db', il ne démarrera qu'une fois que 'db' sera prêt
+      - redis  # Ce service dépend également de 'redis'
 
-    ports: 
-      - '8000:8000'
+  db:
+    image: postgres  # Utilise l'image officielle de PostgreSQL
+    volumes:
+      - ./data/db:/var/lib/postgresql/data  # Monte un volume local pour stocker les données de la base
+    environment:  # Définit les variables d'environnement pour la configuration de PostgreSQL
+      POSTGRES_DB: postgres  # Nom de la base de données par défaut
+      POSTGRES_USER: postgres  # Nom de l'utilisateur de la base de données
+      POSTGRES_PASSWORD: postgres  # Mot de passe de l'utilisateur
+    ports:
+      - "5432:5432"  # Expose le port 5432 du conteneur sur le port 5433 de l'hôte (5432 est le port PostgreSQL par défaut)
+    healthcheck:  # Vérifie la santé du service 'db'
+      test: ["CMD-SHELL", "pg_isready -U postgres"]  # Vérifie si PostgreSQL est prêt à accepter des connexions
+      interval: 10s  # Intervalle entre chaque vérification (toutes les 10 secondes)
+      retries: 5  # Nombre de tentatives avant de considérer que le service est défaillant
 
-    entrypoint: /app/entrypoint.sh   
+  redis:
+    image: redis:latest  # Utilise l'image officielle de Redis
+    ports:
+      - "6379:6379"  # Expose le port 6379 du conteneur sur le port 6379 de l'hôte (6379 est le port Redis par défaut)
+
+  celery:
+    restart: always  # Redémarre automatiquement le service en cas de panne
+    build: .  # Construit l'image Docker à partir du Dockerfile dans le répertoire courant
+    command: celery -A django_invoice worker -l info -B --scheduler django_celery_beat.schedulers:DatabaseScheduler  # Commande pour démarrer le worker Celery avec la planification des tâches
+    volumes:
+      - .:/invoice  # Monte le répertoire courant (.) dans le conteneur à /invoice
+    env_file:
+      - ".env"  # Charge les variables d'environnement depuis le fichier .env
+    depends_on:
+      - redis  # Ce service dépend du service 'redis', il ne démarrera qu'une fois que 'redis' sera prêt
+      - db  # Ce service dépend également de 'db'
