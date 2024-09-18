@@ -37,7 +37,7 @@ jobs:
 
       - name: Run Tests  # Exécute les tests unitaires
         run: |
-          python -m unittest discover -s tests  # Exécute tous les tests dans le dossier "tests"
+          python manage.py test  # Exécute les tests unitaires
 
   deploy:
     runs-on: ubuntu-latest  # Exécute sur Ubuntu
