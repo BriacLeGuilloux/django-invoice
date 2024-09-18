@@ -40,10 +40,10 @@ DEBUG = False
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://tutotest.com",
-    "http://tutotest.com",
+    "https://donaldtest.blog",
+    "http://donaldtest.blog",
     "http://127.0.0.1",
     "http://localhost",
 ]
 
-CSRF_COOKIE_DOMAIN = '.tutotest.com'
+CSRF_COOKIE_DOMAIN = '.donaldtest.blog'
