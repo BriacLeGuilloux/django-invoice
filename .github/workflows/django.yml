@@ -59,4 +59,4 @@ jobs:
         env:
           SSH_PASS: ${{ secrets.VPS_SSH_PASS }}  # Mot de passe SSH depuis les secrets
         run: |
-          sshpass -p "$SSH_PASS" ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} 'bash -s' < ./run.sh  # Exécute le script "deploy.sh" sur le VPS
+          sshpass -p "$SSH_PASS" ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} 'bash -s' < ./deploy.sh  # Exécute le script "deploy.sh" sur le VPS
