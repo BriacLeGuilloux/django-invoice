@@ -8,7 +8,7 @@ services:
     ports:
       - "8000:8000"  # Expose le port 8000 du conteneur sur le port 8000 de l'hôte
     volumes:
-      - .:/django-invoice  # Monte le répertoire courant (.) dans le conteneur à /sms
+      - .:/invoice  # Monte le répertoire courant (.) dans le conteneur à /sms
     env_file:
       - ".env"  # Charge les variables d'environnement depuis le fichier .env
     depends_on:
@@ -40,7 +40,7 @@ services:
     build: .  # Construit l'image Docker à partir du Dockerfile dans le répertoire courant
     command: celery -A django_invoice worker -l info -B --scheduler django_celery_beat.schedulers:DatabaseScheduler  # Commande pour démarrer le worker Celery avec la planification des tâches
     volumes:
-      - .:/django-invoice  # Monte le répertoire courant (.) dans le conteneur à /invoice
+      - .:/invoice  # Monte le répertoire courant (.) dans le conteneur à /invoice
     env_file:
       - ".env"  # Charge les variables d'environnement depuis le fichier .env
     depends_on:
