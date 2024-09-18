@@ -33,13 +33,7 @@ services:
   redis:
     restart: always
     image: "redis:6.2.2-alpine" # Utilise l'image Redis version 6.2.2 avec Alpine Linux
-    command: redis-server /usr/local/etc/redis/redis.conf # Utilise un fichier de configuration personnalisé pour Redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - $PWD/redis-data:/var/lib/redis # Monte un volume local pour stocker les données de Redis
-      - $PWD/redis_.conf:/user/local/etc/redis/redis_.conf # Monte le fichier de configuration redis_.conf dans le conteneur
-      - ./redis_.conf:/usr/local/etc/redis/redis.conf  # Monte le fichier de configuration redis.conf dans le conteneur
+    
   celery:
     restart: always  # Redémarre automatiquement le service en cas de panne
     build: .  # Construit l'image Docker à partir du Dockerfile dans le répertoire courant
@@ -51,3 +45,4 @@ services:
     depends_on:
       - redis  # Ce service dépend du service 'redis', il ne démarrera qu'une fois que 'redis' sera prêt
       - db  # Ce service dépend également de 'db'
+      - web  # Ce service dépend également de 'web' pour accéder aux variables d'environnement
