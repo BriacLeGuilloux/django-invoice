@@ -59,7 +59,7 @@ class Invoice(models.Model):
 
     invoice_date_time = models.DateTimeField(auto_now_add=True)
 
-    total = models.DecimalField(max_digits=10000, decimal_places=2)
+    total = models.DecimalField(max_digits=500, decimal_places=2)
 
     last_updated_date = models.DateTimeField(null=True, blank=True)
 
