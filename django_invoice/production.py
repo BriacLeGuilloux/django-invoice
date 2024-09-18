@@ -13,7 +13,7 @@ DATABASES = {
     }
 }
 
-CELERY_BROKER_URL = config('REDIS_URL', 'redis://redis:6379/0')
+CELERY_BROKER_URL = config('REDIS_URL', "redis://redis")
 
 
 
@@ -27,7 +27,7 @@ CELERY_TASK_SERIALIZER = "json"
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": config("REDIS_URL"),
+        "LOCATION": config("REDIS_URL", "redis://redis"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "IGNORE_EXCEPTIONS": True,

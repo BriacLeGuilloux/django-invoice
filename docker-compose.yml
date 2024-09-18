@@ -31,10 +31,15 @@ services:
       retries: 5  # Nombre de tentatives avant de considérer que le service est défaillant
 
   redis:
-    image: redis:latest  # Utilise l'image officielle de Redis
+    restart: always
+    image: "redis:6.2.2-alpine" # Utilise l'image Redis version 6.2.2 avec Alpine Linux
+    command: redis-server /usr/local/etc/redis/redis.conf # Utilise un fichier de configuration personnalisé pour Redis
     ports:
-      - "6380:6379"  # Expose le port 6379 du conteneur sur le port 6379 de l'hôte (6379 est le port Redis par défaut)
-
+      - "6379:6379"
+    volumes:
+      - $PWD/redis-data:/var/lib/redis # Monte un volume local pour stocker les données de Redis
+      - $PWD/redis_.conf:/user/local/etc/redis/redis_.conf # Monte le fichier de configuration redis_.conf dans le conteneur
+      - ./redis_.conf:/usr/local/etc/redis/redis.conf  # Monte le fichier de configuration redis.conf dans le conteneur
   celery:
     restart: always  # Redémarre automatiquement le service en cas de panne
     build: .  # Construit l'image Docker à partir du Dockerfile dans le répertoire courant
