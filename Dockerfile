@@ -7,7 +7,7 @@ RUN apt-get update -y && apt-get upgrade -y
 # Définir les variables d'environnement pour configurer Python
 ENV PYTHONUNBUFFERED 1  # Désactive la mise en tampon de la sortie Python (utile pour les logs en temps réel)
 ENV PYTHONDONTWRITEBYTECODE 1  # Empêche Python de créer des fichiers .pyc (fichiers bytecode)
-ENV APP_HOME /invoice  # Définir le répertoire de l'application
+ENV APP_HOME /django-invoice  # Définir le répertoire de l'application
 ENV XDG_RUNTIME_DIR /tmp/runtime-root  # Définir le répertoire d'exécution temporaire
 
 # Créer le répertoire d'exécution et définir les permissions
