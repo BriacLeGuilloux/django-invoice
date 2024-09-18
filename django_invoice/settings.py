@@ -28,7 +28,7 @@ except Exception as e:
 SECRET_KEY = config('SECRET_KEY', default="django-invoiceadfasdfa")
 
 
-ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default='*').split(",")
 
 
 
