@@ -33,7 +33,7 @@ services:
   redis:
     image: redis:latest  # Utilise l'image officielle de Redis
     ports:
-      - "6379:6379"  # Expose le port 6379 du conteneur sur le port 6379 de l'hôte (6379 est le port Redis par défaut)
+      - "6380:6379"  # Expose le port 6379 du conteneur sur le port 6379 de l'hôte (6379 est le port Redis par défaut)
 
   celery:
     restart: always  # Redémarre automatiquement le service en cas de panne
