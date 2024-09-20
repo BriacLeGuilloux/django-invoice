@@ -35,7 +35,7 @@ Linux/mac user
 source venv/bin/activate
 ```
 
-Window user 
+Window users
 
 ```
 venv\Scripts\activate
