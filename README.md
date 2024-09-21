@@ -29,7 +29,7 @@ python3.9 -m venv venv
 
 Activate a virtual environment
 
-Linux/mac user 
+Linux/mac users 
 
 ```
 source venv/bin/activate
