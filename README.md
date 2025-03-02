@@ -1,5 +1,8 @@
 # django-invoice system
-I follow a tutorial in order to deploy an Django Application that gather user data and store them into a PostgreSQL.
+J'ai suivi un tutoriel consistant à déployer une application Django.
+Cette application permet de récupérer les informations des utilisateurs et les ajoute à une base de données PostgreSQL.
+Une instance EC2 d'AWS est lancée, connectée par SSH à VS Code et GitHub.
+
 Source : https://github.com/donaldte/django-invoice
 
 
