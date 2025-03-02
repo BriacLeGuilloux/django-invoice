@@ -1,5 +1,10 @@
 # django-invoice system
 I follow a tutorial in order to deploy an Django Application that gather user data and store them into a PostgreSQL.
+Source : https://github.com/donaldte/django-invoice
+
+
+
+![](django-invoice.gif)
 
 
 # Steps
